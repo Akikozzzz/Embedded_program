@@ -10,10 +10,20 @@
 #include <poll.h>
 #include <cstring>
 #include <errno.h>
+#include <csignal>
+#include <atomic>
+
 
 #define SCD41_ADDR 0x62
 #define I2C_DEVICE "/dev/i2c-1"
 
+// 全局原子标志用于终止事件循环
+std::atomic<bool> g_run_flag{true};
+
+// 信号处理函数 (Ctrl+C 终止)
+void signalHandler(int signum) {
+    g_run_flag = false;
+}
 // SCD41Driver 负责与传感器通信和数据采集，采用 timerfd 与 poll 构建单线程事件循环
 class SCD41Driver {
 public:
@@ -157,29 +167,36 @@ void sensorCallback(int co2, float temperature, float humidity) {
 // 主函数实现单线程事件循环，通过 poll() 监听 timerfd 事件
 //
 int main() {
+    signal(SIGINT, signalHandler);  // 注册SIGINT信号捕获 (Ctrl+C)
+
     SCD41Driver sensor(I2C_DEVICE, SCD41_ADDR);
     sensor.register_callback(sensorCallback);
     sensor.start();
 
     std::cout << "Press Ctrl+C to stop the sensor reading." << std::endl;
 
-    // 设置 poll 监听 sensor 的 timerfd
     struct pollfd pfd;
     pfd.fd = sensor.getTimerFd();
     pfd.events = POLLIN;
 
-    // 单线程事件循环：调用 poll() 等待定时器触发事件，无内部阻塞延时代码
-    while (true) {
-        int ret = poll(&pfd, 1, -1); // 无限等待直到事件到来
+    // 单线程事件循环，有限超时，每次循环检查g_run_flag状态
+    while (g_run_flag) {
+        int ret = poll(&pfd, 1, 500); // 500ms超时等待
         if (ret < 0) {
+            if (errno == EINTR) continue; // 信号中断，重新poll
             std::cerr << "Poll error: " << strerror(errno) << std::endl;
             break;
+        } else if (ret == 0) {
+            continue; // 超时，无事件，继续检查g_run_flag
         }
+
         if (pfd.revents & POLLIN) {
             sensor.handleTimerEvent();
         }
     }
-    
+
     sensor.stop();
+    std::cout << "Sensor stopped gracefully." << std::endl;
+
     return 0;
 }
