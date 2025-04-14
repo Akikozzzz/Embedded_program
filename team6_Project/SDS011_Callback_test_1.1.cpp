@@ -1,78 +1,99 @@
 #include <iostream>
+#include <functional>
 #include <fcntl.h>
 #include <unistd.h>
 #include <termios.h>
 #include <cstring>
 #include <poll.h>
+#include <csignal>
+#include <atomic>
 #include <errno.h>
 
 #define SERIAL_PORT "/dev/ttyUSB0"
 
 using namespace std;
 
+std::atomic<bool> run_flag{true};  // æ§åˆ¶ä¸»å¾ªç¯é€€å‡º
+
+// Ctrl+C ä¿¡å·å¤„ç†å™¨
+void signalHandler(int) {
+    run_flag = false;
+}
+
+// æ‰“å¼€å¹¶é…ç½®ä¸²å£
 int open_serial(const char* device) {
-    // ´ò¿ª´®¿Ú²¢ÉèÖÃÎª·Ç×èÈûÄ£Ê½
     int fd = open(device, O_RDWR | O_NOCTTY | O_NDELAY);
     if (fd == -1) {
         perror("Unable to open serial port");
         return -1;
     }
 
-    // ÅäÖÃ´®¿ÚÊôĞÔ
     struct termios options;
     tcgetattr(fd, &options);
 
     cfsetispeed(&options, B9600);
     cfsetospeed(&options, B9600);
 
-    options.c_cflag &= ~PARENB;  // ÎŞÆæÅ¼Ğ£Ñé
-    options.c_cflag &= ~CSTOPB;  // 1¸öÍ£Ö¹Î»
+    options.c_cflag &= ~PARENB;
+    options.c_cflag &= ~CSTOPB;
     options.c_cflag &= ~CSIZE;
-    options.c_cflag |= CS8;      // 8¸öÊı¾İÎ»
-
-    options.c_cflag |= CREAD | CLOCAL; // Ê¹ÄÜ¶ÁÈ¡£¬ºöÂÔµ÷ÖÆ½âµ÷Æ÷¿ØÖÆÏßÂ·
-    options.c_iflag &= ~(IXON | IXOFF | IXANY);  // ½ûÓÃÁ÷¿Ø
-    options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG); // ÉèÖÃÎªÔ­Ê¼Ä£Ê½
-    options.c_oflag &= ~OPOST; // Ô­Ê¼Êä³ö
+    options.c_cflag |= CS8;
+    options.c_cflag |= CREAD | CLOCAL;
+    options.c_iflag &= ~(IXON | IXOFF | IXANY);
+    options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
+    options.c_oflag &= ~OPOST;
 
     tcsetattr(fd, TCSANOW, &options);
     return fd;
 }
 
-int main() {
-    // ´ò¿ª´®¿ÚÉè±¸
-    int fd = open_serial(SERIAL_PORT);
-    if (fd == -1)
-        return 1;
-    cout << "connect success, reading data now..." << endl;
+// å®šä¹‰å›è°ƒå‡½æ•°ç±»å‹
+using DataCallback = std::function<void(float pm25, float pm10)>;
 
-    // Ê¹ÓÃ poll ¼àÌı´®¿ÚÎÄ¼şÃèÊö·ûµÄÊäÈëÊÂ¼ş
+// è¯»å–å¹¶è§£æä¼ æ„Ÿå™¨æ•°æ®
+void read_sensor_data(int fd, DataCallback callback) {
+    unsigned char buffer[10];
+    int n = read(fd, buffer, sizeof(buffer));
+    if (n >= 6 && buffer[0] == 0xAA && buffer[1] == 0xC0) {
+        int pm25 = buffer[2] | (buffer[3] << 8);
+        int pm10 = buffer[4] | (buffer[5] << 8);
+        if (callback) {
+            callback(pm25 / 10.0f, pm10 / 10.0f);  // âœ… è§¦å‘å›è°ƒ
+        }
+    }
+}
+
+// å›è°ƒå‡½æ•°ï¼šå¤„ç†æ•°æ®
+void sensorCallback(float pm25, float pm10) {
+    cout << "PM2.5: " << pm25 << " ug/m3, PM10: " << pm10 << " ug/m3" << endl;
+}
+
+int main() {
+    signal(SIGINT, signalHandler);  // æ³¨å†Œ Ctrl+C å¤„ç†å™¨
+
+    int fd = open_serial(SERIAL_PORT);
+    if (fd == -1) return 1;
+
+    cout << "Connect success, reading data now..." << endl;
+
     struct pollfd pfd;
     pfd.fd = fd;
     pfd.events = POLLIN;
 
-    unsigned char buffer[10];
-    while (true) {
-        // ×èÈûµÈ´ıÊÂ¼şµ½À´£¬²»Ê¹ÓÃ¶îÍâÑÓÊ±º¯Êı
-        int ret = poll(&pfd, 1, -1);  // ÎŞÏŞµÈ´ı
+    while (run_flag) {
+        int ret = poll(&pfd, 1, 500);  // 500ms è¶…æ—¶
         if (ret < 0) {
+            if (errno == EINTR) continue; // ä¿¡å·æ‰“æ–­ç»§ç»­
             cerr << "poll error: " << strerror(errno) << endl;
             break;
         }
-        if (pfd.revents & POLLIN) {
-            // µ±ÓĞÊı¾İµ½´ïÊ±¶ÁÈ¡Êı¾İ
-            int n = read(fd, buffer, sizeof(buffer));
-            if (n > 0) {
-                // SDS011 ´«¸ĞÆ÷Êı¾İ¸ñÊ½£ºÆğÊ¼×Ö½Ú0xAA, 0xC0
-                if (buffer[0] == 0xAA && buffer[1] == 0xC0) {
-                    int pm25 = buffer[2] | (buffer[3] << 8);
-                    int pm10 = buffer[4] | (buffer[5] << 8);
-                    cout << "PM2.5: " << pm25 / 10.0 << " ug/m3, PM10: " << pm10 / 10.0 << " ug/m3" << endl;
-                }
-            }
+
+        if (ret > 0 && (pfd.revents & POLLIN)) {
+            read_sensor_data(fd, sensorCallback);
         }
     }
 
+    cout << "Stopped." << endl;
     close(fd);
     return 0;
 }
