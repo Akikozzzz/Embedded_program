@@ -62,15 +62,9 @@ public:
         }
     }
 
-    ~SCD41Driver() {
-        stop();
-        if (timer_fd_ >= 0) close(timer_fd_);
-        if (fd_ >= 0) close(fd_);
-    }
   ~SCD41Driver() {
     if (fd_ >= 0) {
         send_command(0x3F86); // 发送停止命令
-        usleep(500000);
         close(fd_);           // 直接关闭，不再调用 stop()
     }
     if (timer_fd_ >= 0) close(timer_fd_);
@@ -117,11 +111,16 @@ public:
 
 private:
     // 发送 16 位命令到传感器
-    void send_command(uint16_t cmd) {
-        uint8_t buffer[2] = { ... };
-        ssize_t ret = write(fd_, buffer, 2);
-        if (ret != 2) {
-            std::cerr << "Command write failed: " << strerror(errno) << std::endl;
+   void send_command(uint16_t cmd) {
+    uint8_t buffer[2] = {
+        static_cast<uint8_t>(cmd >> 8),
+        static_cast<uint8_t>(cmd & 0xFF)
+    };
+
+    ssize_t ret = write(fd_, buffer, 2);  // 捕获返回值
+
+    if (ret != 2) {
+        std::cerr << "Command write failed: " << strerror(errno) << std::endl;
     }
 }
 
