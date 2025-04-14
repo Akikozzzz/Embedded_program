@@ -67,7 +67,14 @@ public:
         if (timer_fd_ >= 0) close(timer_fd_);
         if (fd_ >= 0) close(fd_);
     }
-
+  ~SCD41Driver() {
+    if (fd_ >= 0) {
+        send_command(0x3F86); // 发送停止命令
+        usleep(500000);
+        close(fd_);           // 直接关闭，不再调用 stop()
+    }
+    if (timer_fd_ >= 0) close(timer_fd_);
+}
     // 注册回调
     void register_callback(SensorCallback callback) {
         callback_ = callback;
@@ -111,10 +118,12 @@ public:
 private:
     // 发送 16 位命令到传感器
     void send_command(uint16_t cmd) {
-        uint8_t buffer[2] = { static_cast<uint8_t>(cmd >> 8),
-                              static_cast<uint8_t>(cmd & 0xFF) };
-        write(fd_, buffer, 2);
+        uint8_t buffer[2] = { ... };
+        ssize_t ret = write(fd_, buffer, 2);
+        if (ret != 2) {
+            std::cerr << "Command write failed: " << strerror(errno) << std::endl;
     }
+}
 
     // 检查传感器 data ready 状态（通过命令 0xE4B8 读取寄存器状态）
     bool check_data_ready() {
