@@ -1,0 +1,27 @@
+[2025-04-17 20:01:55] Alarm: PM2.5 exceeds threshold value£¡(2.800000 > 1.000000)
+[2025-04-17 20:02:05] Alarm: PM2.5 exceeds threshold value£¡(2.900000 > 1.000000)
+[2025-04-17 22:04:41] Alarm: CO2 above threshold! (3010)
+[2025-04-17 22:04:51] Alarm: CO2 above threshold! (2995)
+[2025-04-17 22:08:12] Alarm: CO2 above threshold! (3056)
+[2025-04-17 22:08:22] Alarm: CO2 above threshold! (3003)
+[2025-04-17 22:10:48] Alarm: CO2 above threshold! (2811)
+[2025-04-17 22:10:48] Alarm: PM2.5 above threshold! (7.700000)
+[2025-04-18 13:33:27] Alarm: CO2 above threshold! (1075)
+[2025-04-18 13:37:05] Alarm: PM2.5 above threshold! (4.700000)
+[2025-04-18 13:37:15] Alarm: PM2.5 above threshold! (4.800000)
+[2025-04-18 13:40:17] Alarm: CO2 above threshold! (1085)
+[2025-04-18 13:40:17] Alarm: PM2.5 above threshold! (7.800000)
+[2025-04-18 13:40:27] Alarm: CO2 above threshold! (920)
+[2025-04-18 13:40:27] Alarm: PM2.5 above threshold! (8.100000)
+[2025-04-18 14:08:01] Alarm: CO2 above threshold! (1015)
+[2025-04-18 14:08:01] Alarm: PM2.5 above threshold! (9.100000)
+[2025-04-18 14:08:11] Alarm: CO2 above threshold! (1060)
+[2025-04-18 14:08:11] Alarm: PM2.5 above threshold! (8.900000)
+[2025-04-18 16:16:59] Warning: Abnormal pH detected! (0.000000)
+[2025-04-18 16:17:09] Warning: Abnormal pH detected! (0.000000)
+[2025-04-18 16:17:19] Warning: Abnormal pH detected! (0.000000)
+[2025-04-18 16:17:29] Warning: Abnormal pH detected! (0.000000)
+[2025-04-18 16:46:03] Abnormal pH detected: 4.732840
+[2025-04-18 16:46:13] Abnormal pH detected: 4.710617
+[2025-04-18 16:46:23] Abnormal pH detected: 4.721729
+[2025-04-18 16:46:33] Abnormal pH detected: 13.199765

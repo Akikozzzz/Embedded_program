@@ -1,13 +1,19 @@
 cmake_minimum_required(VERSION 3.10)
-project(SCD041Test)
+project(EnvironmentMonitor)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Find Threads Library
-find_package(Threads REQUIRED)
+include_directories(include)
 
-add_executable(scd041_test SCD041_TEST_CALLBACK.cpp)
+set(SOURCES
+    src/main3.cpp
+    src/OLEDDriver.cpp
+    src/PHSensorReader.cpp
+    src/SCD41Driver.cpp
+    src/SDS011Driver.cpp
+)
 
-# Link to the Thread Library
-target_link_libraries(scd041_test pthread)
+add_executable(main ${SOURCES})
+
+target_link_libraries(main pthread)

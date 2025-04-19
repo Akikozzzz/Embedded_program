@@ -117,41 +117,137 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named scd41_driver
+# Target rules for targets named main
 
 # Build rule for target.
-scd41_driver: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 scd41_driver
-.PHONY : scd41_driver
+main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main
+.PHONY : main
 
 # fast build rule for target.
-scd41_driver/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/scd41_driver.dir/build.make CMakeFiles/scd41_driver.dir/build
-.PHONY : scd41_driver/fast
+main/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+.PHONY : main/fast
 
-SCD041_TEST_CALLBACK.o: SCD041_TEST_CALLBACK.cpp.o
-.PHONY : SCD041_TEST_CALLBACK.o
+src/OLEDDriver.o: src/OLEDDriver.cpp.o
+.PHONY : src/OLEDDriver.o
 
 # target to build an object file
-SCD041_TEST_CALLBACK.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/scd41_driver.dir/build.make CMakeFiles/scd41_driver.dir/SCD041_TEST_CALLBACK.cpp.o
-.PHONY : SCD041_TEST_CALLBACK.cpp.o
+src/OLEDDriver.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/OLEDDriver.cpp.o
+.PHONY : src/OLEDDriver.cpp.o
 
-SCD041_TEST_CALLBACK.i: SCD041_TEST_CALLBACK.cpp.i
-.PHONY : SCD041_TEST_CALLBACK.i
+src/OLEDDriver.i: src/OLEDDriver.cpp.i
+.PHONY : src/OLEDDriver.i
 
 # target to preprocess a source file
-SCD041_TEST_CALLBACK.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/scd41_driver.dir/build.make CMakeFiles/scd41_driver.dir/SCD041_TEST_CALLBACK.cpp.i
-.PHONY : SCD041_TEST_CALLBACK.cpp.i
+src/OLEDDriver.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/OLEDDriver.cpp.i
+.PHONY : src/OLEDDriver.cpp.i
 
-SCD041_TEST_CALLBACK.s: SCD041_TEST_CALLBACK.cpp.s
-.PHONY : SCD041_TEST_CALLBACK.s
+src/OLEDDriver.s: src/OLEDDriver.cpp.s
+.PHONY : src/OLEDDriver.s
 
 # target to generate assembly for a file
-SCD041_TEST_CALLBACK.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/scd41_driver.dir/build.make CMakeFiles/scd41_driver.dir/SCD041_TEST_CALLBACK.cpp.s
-.PHONY : SCD041_TEST_CALLBACK.cpp.s
+src/OLEDDriver.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/OLEDDriver.cpp.s
+.PHONY : src/OLEDDriver.cpp.s
+
+src/PHSensorReader.o: src/PHSensorReader.cpp.o
+.PHONY : src/PHSensorReader.o
+
+# target to build an object file
+src/PHSensorReader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/PHSensorReader.cpp.o
+.PHONY : src/PHSensorReader.cpp.o
+
+src/PHSensorReader.i: src/PHSensorReader.cpp.i
+.PHONY : src/PHSensorReader.i
+
+# target to preprocess a source file
+src/PHSensorReader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/PHSensorReader.cpp.i
+.PHONY : src/PHSensorReader.cpp.i
+
+src/PHSensorReader.s: src/PHSensorReader.cpp.s
+.PHONY : src/PHSensorReader.s
+
+# target to generate assembly for a file
+src/PHSensorReader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/PHSensorReader.cpp.s
+.PHONY : src/PHSensorReader.cpp.s
+
+src/SCD41Driver.o: src/SCD41Driver.cpp.o
+.PHONY : src/SCD41Driver.o
+
+# target to build an object file
+src/SCD41Driver.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/SCD41Driver.cpp.o
+.PHONY : src/SCD41Driver.cpp.o
+
+src/SCD41Driver.i: src/SCD41Driver.cpp.i
+.PHONY : src/SCD41Driver.i
+
+# target to preprocess a source file
+src/SCD41Driver.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/SCD41Driver.cpp.i
+.PHONY : src/SCD41Driver.cpp.i
+
+src/SCD41Driver.s: src/SCD41Driver.cpp.s
+.PHONY : src/SCD41Driver.s
+
+# target to generate assembly for a file
+src/SCD41Driver.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/SCD41Driver.cpp.s
+.PHONY : src/SCD41Driver.cpp.s
+
+src/SDS011Driver.o: src/SDS011Driver.cpp.o
+.PHONY : src/SDS011Driver.o
+
+# target to build an object file
+src/SDS011Driver.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/SDS011Driver.cpp.o
+.PHONY : src/SDS011Driver.cpp.o
+
+src/SDS011Driver.i: src/SDS011Driver.cpp.i
+.PHONY : src/SDS011Driver.i
+
+# target to preprocess a source file
+src/SDS011Driver.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/SDS011Driver.cpp.i
+.PHONY : src/SDS011Driver.cpp.i
+
+src/SDS011Driver.s: src/SDS011Driver.cpp.s
+.PHONY : src/SDS011Driver.s
+
+# target to generate assembly for a file
+src/SDS011Driver.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/SDS011Driver.cpp.s
+.PHONY : src/SDS011Driver.cpp.s
+
+src/main3.o: src/main3.cpp.o
+.PHONY : src/main3.o
+
+# target to build an object file
+src/main3.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main3.cpp.o
+.PHONY : src/main3.cpp.o
+
+src/main3.i: src/main3.cpp.i
+.PHONY : src/main3.i
+
+# target to preprocess a source file
+src/main3.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main3.cpp.i
+.PHONY : src/main3.cpp.i
+
+src/main3.s: src/main3.cpp.s
+.PHONY : src/main3.s
+
+# target to generate assembly for a file
+src/main3.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main3.cpp.s
+.PHONY : src/main3.cpp.s
 
 # Help Target
 help:
@@ -161,10 +257,22 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... scd41_driver"
-	@echo "... SCD041_TEST_CALLBACK.o"
-	@echo "... SCD041_TEST_CALLBACK.i"
-	@echo "... SCD041_TEST_CALLBACK.s"
+	@echo "... main"
+	@echo "... src/OLEDDriver.o"
+	@echo "... src/OLEDDriver.i"
+	@echo "... src/OLEDDriver.s"
+	@echo "... src/PHSensorReader.o"
+	@echo "... src/PHSensorReader.i"
+	@echo "... src/PHSensorReader.s"
+	@echo "... src/SCD41Driver.o"
+	@echo "... src/SCD41Driver.i"
+	@echo "... src/SCD41Driver.s"
+	@echo "... src/SDS011Driver.o"
+	@echo "... src/SDS011Driver.i"
+	@echo "... src/SDS011Driver.s"
+	@echo "... src/main3.o"
+	@echo "... src/main3.i"
+	@echo "... src/main3.s"
 .PHONY : help
 
 

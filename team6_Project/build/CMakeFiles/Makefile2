@@ -63,7 +63,7 @@ CMAKE_BINARY_DIR = /home/team6/Project/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/scd41_driver.dir/all
+all: CMakeFiles/main.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +71,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/scd41_driver.dir/clean
+clean: CMakeFiles/main.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/scd41_driver.dir
+# Target rules for target CMakeFiles/main.dir
 
 # All Build rule for target.
-CMakeFiles/scd41_driver.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/scd41_driver.dir/build.make CMakeFiles/scd41_driver.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/scd41_driver.dir/build.make CMakeFiles/scd41_driver.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/team6/Project/build/CMakeFiles --progress-num=1,2 "Built target scd41_driver"
-.PHONY : CMakeFiles/scd41_driver.dir/all
+CMakeFiles/main.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/team6/Project/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target main"
+.PHONY : CMakeFiles/main.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/scd41_driver.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/team6/Project/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/scd41_driver.dir/all
+CMakeFiles/main.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/team6/Project/build/CMakeFiles 6
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/team6/Project/build/CMakeFiles 0
-.PHONY : CMakeFiles/scd41_driver.dir/rule
+.PHONY : CMakeFiles/main.dir/rule
 
 # Convenience name for target.
-scd41_driver: CMakeFiles/scd41_driver.dir/rule
-.PHONY : scd41_driver
+main: CMakeFiles/main.dir/rule
+.PHONY : main
 
 # clean rule for target.
-CMakeFiles/scd41_driver.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/scd41_driver.dir/build.make CMakeFiles/scd41_driver.dir/clean
-.PHONY : CMakeFiles/scd41_driver.dir/clean
+CMakeFiles/main.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/clean
+.PHONY : CMakeFiles/main.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
