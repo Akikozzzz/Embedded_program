@@ -5,12 +5,15 @@ This project designs and implements a removable environmental monitoring system 
 The system is suitable for home living environment, balance gardening, small-scale agricultural greenhouse, ecological farming and other scenarios. Users can view the real-time trend of environmental data at any time through the local terminal or web interface, to make scientific judgement and timely adjustment. Its detachable and expandable design enables the system to flexibly respond to different application requirements, providing a low-cost, high-availability and easy to maintain solution for environmental intelligent management.
 
 ![image](https://github.com/user-attachments/assets/b26e09a6-bed1-4506-a046-3305a47502f3)
+
 Fig 1. Raspberry Pi based environmental monitoring and control system architecture diagram.
 
 ![image](https://github.com/user-attachments/assets/48d0992f-be2d-4d47-b2cc-3f2bc7cd026f)
+
 Fig 2. Water Quality Monitoring System Architecture
 
 ![image](https://github.com/user-attachments/assets/badca903-552f-4442-923f-9a6628c38752)
+
 Fig 3. Air Quality Monitoring System Architecture.
 
 2.	Solution to the problem and market demand
@@ -66,6 +69,7 @@ If you encounter device path problems, please verify that the device address of 
 The system has been designed on the basis of a single-threaded event-driven architecture, with the objective of achieving efficient concurrent collection of multi-sensor data through non-blocking event loops. The core architecture employs the poll() system call to listen for multiple event sources, including the timer (created through timerfd_create), the serial port device (SDS011 sensor), and the I2C device status, to achieve multiplexed event response. Each sensor module is independently configured with a timer to trigger the sampling process (2 seconds for SCD041, 5 seconds for SDS011, and 1 second for the pH sensor). The data is then sent back to the main thread for processing through a callback function mechanism to ensure the decoupling of functional modules. The timeout parameter of the main event loop is set to 10 milliseconds (ms) to ensure the real-time response capability of the system to events (the measured delay of the main loop is less than 50 milliseconds). As shown in Figure 1, the core software components of the system and their interaction relationships are described.
 
  ![image](https://github.com/user-attachments/assets/289c979c-9543-4655-b851-cd654392a2c8)
+ 
 Fig4 The core software components of the system and their interaction relationships
 
 In comparison with the conventional multi-threading scheme, this architecture circumvents the overhead of thread switching by unifying the event queue, reduces the memory usage to 3MB (a reduction of 83%), and wholly eliminates the risk of lock contention. The hardware interface layer attains device independence through abstract encapsulation (for example, the I2CDevice base class), thereby facilitating the rapid expansion of subsequent sensors.
