@@ -33,11 +33,11 @@ sudo apt-get install git cmake build-essential libi2c-dev libpthread-stubs0-dev 
 #Clone the project source
 git clone https://github.com/Akikozzzz/Embedded_program.git
 cd Embedded_program/team6_Project
-# Create the build directory
+Create the build directory
 mkdir build && cd build
-# Execute the CMake configuration 
+Execute the CMake configuration 
 make ..
-# Compile to generate executables
+Compile to generate executables
 make
 #Running Projects
 ./main
