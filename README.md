@@ -6,8 +6,10 @@ The system is suitable for home living environment, balance gardening, small-sca
 
 ![image](https://github.com/user-attachments/assets/b26e09a6-bed1-4506-a046-3305a47502f3)
 Fig 1. Raspberry Pi based environmental monitoring and control system architecture diagram.
+
 ![image](https://github.com/user-attachments/assets/48d0992f-be2d-4d47-b2cc-3f2bc7cd026f)
 Fig 2. Water Quality Monitoring System Architecture
+
 ![image](https://github.com/user-attachments/assets/badca903-552f-4442-923f-9a6628c38752)
 Fig 3. Air Quality Monitoring System Architecture.
 
