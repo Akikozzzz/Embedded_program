@@ -4,6 +4,10 @@ This project designs and implements a removable environmental monitoring system 
 
 The system is suitable for home living environment, balance gardening, small-scale agricultural greenhouse, ecological farming and other scenarios. Users can view the real-time trend of environmental data at any time through the local terminal or web interface, to make scientific judgement and timely adjustment. Its detachable and expandable design enables the system to flexibly respond to different application requirements, providing a low-cost, high-availability and easy to maintain solution for environmental intelligent management.
 
+![image](https://github.com/user-attachments/assets/b26e09a6-bed1-4506-a046-3305a47502f3)
+![image](https://github.com/user-attachments/assets/48d0992f-be2d-4d47-b2cc-3f2bc7cd026f)
+![image](https://github.com/user-attachments/assets/badca903-552f-4442-923f-9a6628c38752)
+
 2.	Solution to the problem and market demand
 
 This project is suitable for the environmental monitoring problems that exist in the current family and small-scale agricultural scenarios, and solves the following core problems through intelligent means:
