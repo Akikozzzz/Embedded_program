@@ -60,7 +60,7 @@ Running Projects
 <pre>./main</pre>
 #Once the program is started, the OLED display will show environmental parameters in real time, including airborne particulate matter concentration, CO₂ concentration and water ph.</pre>
 
-##4.4	Precautions
+## 4.4	Precautions
 Ensure that the sensor module is securely connected to the Raspberry Pi to avoid data reading anomalies.
 If you have permission problems running, try using the `sudo ./main` command to start the program.
 If you encounter device path problems, please verify that the device address of the sensor is consistent with the program definition.
